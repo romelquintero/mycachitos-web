@@ -27,6 +27,12 @@
   .main-img {
     width: 100rem;
   }
+
+  .slide {
+    flex: 0 0 100%; /* ocupa 100% del contenedor */
+    height: 600px;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 80em) {
@@ -40,6 +46,11 @@
 
   .main-img {
     width: 90rem;
+  }
+
+  .slide {
+    height: 580px;
+    max-width: 100%;
   }
 }
 
@@ -147,8 +158,8 @@
   }
 
   .slide {
-    flex: 0 0 200px;
-    height: 160px;
+    height: 430px;
+    max-width: 100%;
   }
 
   .slider-btn {
@@ -185,6 +196,16 @@
 
   .main-img {
     width: 70rem;
+  }
+
+  .slide {
+    height: 280px;
+  }
+}
+
+@media (max-width: 33em) {
+  .slide {
+    height: 250px;
   }
 }
 
