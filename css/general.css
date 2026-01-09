@@ -276,3 +276,7 @@ body {
     /* padding: 0 1rem; */
   }
 }
+.slider-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

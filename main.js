@@ -53,16 +53,79 @@ window.addEventListener("scroll", () => {
 });
 
 const slider = document.querySelector(".slider");
+const slides = document.querySelectorAll(".slide");
 const btnLeft = document.querySelector(".slider-btn.left");
 const btnRight = document.querySelector(".slider-btn.right");
 
-const slideWidth = slider.querySelector(".slide").offsetWidth + 16;
-// 16 es el gap, ajusta según tu CSS
+let gap = 16;
+let slideWidth = 0;
+let currentSlide = 0;
+let isMoving = false;
 
-btnLeft.addEventListener("click", () => {
-  slider.scrollBy({ left: -slideWidth, behavior: "smooth" });
-});
+function calculateSlideWidth() {
+  slideWidth = slides[0].offsetWidth + gap;
+
+  // Reposiciona correctamente al cambiar tamaño
+  slider.scrollTo({
+    left: currentSlide * slideWidth,
+    behavior: "auto",
+  });
+}
+
+function moveSlider() {
+  isMoving = true;
+
+  slider.scrollTo({
+    left: currentSlide * slideWidth,
+    behavior: "smooth",
+  });
+
+  setTimeout(() => {
+    isMoving = false;
+  }, 400);
+}
 
 btnRight.addEventListener("click", () => {
-  slider.scrollBy({ left: slideWidth, behavior: "smooth" });
+  if (isMoving) return;
+
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+    moveSlider();
+  }
 });
+
+btnLeft.addEventListener("click", () => {
+  if (isMoving) return;
+
+  if (currentSlide > 0) {
+    currentSlide--;
+    moveSlider();
+  }
+});
+
+// Inicial + responsive
+window.addEventListener("load", calculateSlideWidth);
+window.addEventListener("resize", calculateSlideWidth);
+
+function updateButtons() {
+  btnLeft.disabled = currentSlide === 0;
+  btnRight.disabled = currentSlide === slides.length - 1;
+}
+
+function moveSlider() {
+  isMoving = true;
+
+  slider.scrollTo({
+    left: currentSlide * slideWidth,
+    behavior: "smooth",
+  });
+
+  updateButtons();
+
+  setTimeout(() => {
+    isMoving = false;
+  }, 400);
+}
+
+// Llamar al cargar
+updateButtons();
